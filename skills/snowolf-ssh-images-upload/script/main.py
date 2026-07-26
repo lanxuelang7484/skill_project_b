@@ -1,8 +1,7 @@
-from common.config_loader import load_global_config
-from common.logger import get_logger
-from common.context import PipelineContext
-from common.ssh_client import SshUploader
+# skills/snowolf-ssh-images-upload/script/main.py
+from common import load_global_config, get_logger, PipelineContext
 from .arch_filter import filter_upload_package
+from .image_uploader import upload_package
 
 logger = get_logger("skill-upload")
 
@@ -11,16 +10,15 @@ def run_upload(ctx: PipelineContext):
     env_info = cfg["environments"][ctx.env_name]
     local_file = filter_upload_package(ctx)
 
-    ssh = SshUploader(
-        host=env_info["ssh_host"],
-        port=env_info["ssh_port"],
-        user=env_info["ssh_user"],
-        pwd=env_info["ssh_pwd"]
+    remote_base = "/data/package"
+    remote_path = upload_package(
+        ssh_host=env_info["ssh_host"],
+        ssh_port=env_info["ssh_port"],
+        ssh_user=env_info["ssh_user"],
+        ssh_pwd=env_info["ssh_pwd"],
+        local_file_path=local_file,
+        remote_base_dir=remote_base
     )
-    ssh.connect()
-    remote_path = f"/data/package/{Path(local_file).name}"
-    ssh.upload_file(local_file, remote_path)
-    ssh.close()
 
     ctx.remote_package_path = remote_path
     logger.info(f"镜像上传完成，远端路径：{remote_path}")
