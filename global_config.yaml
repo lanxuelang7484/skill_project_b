@@ -1,0 +1,45 @@
+# 平台基础信息
+platform:
+  api_url: "https://upgrade-platform.example.com/api/v1"
+  username: "admin-user"
+  password: "********"
+  timeout: 30
+
+# 包存储路径（Windows Server路径格式）
+storage:
+  base_download_path: "D:\\snowolf_package\\download"
+  temp_upload_path: "D:\\snowolf_package\\upload_temp"
+
+# 环境定义，区分架构 x86_64 / arm64
+environments:
+  env-test-x86:
+    env_name: "test-x86"
+    arch: "x86_64"
+    ssh_host: "192.168.1.100"
+    ssh_port: 22
+    ssh_user: "root"
+    ssh_pwd: "xxxx"
+  env-test-arm:
+    env_name: "test-arm"
+    arch: "arm64"
+    ssh_host: "192.168.1.101"
+    ssh_port: 22
+    ssh_user: "root"
+    ssh_pwd: "xxxx"
+  env-prod-x86:
+    env_name: "prod-x86"
+    arch: "x86_64"
+    ssh_host: "192.168.2.100"
+    ssh_port: 22
+    ssh_user: "root"
+    ssh_pwd: "xxxx"
+
+# 下载包名称模板
+package_template:
+  x86_64: "snowolf-v{version}-x86_64.tar.gz"
+  arm64: "snowolf-v{version}-arm64.tar.gz"
+
+# 流水线监控配置
+monitor:
+  poll_interval: 10          # 轮询间隔 秒
+  max_wait_seconds: 1800     # 最大超时时间
