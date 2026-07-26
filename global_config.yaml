@@ -43,3 +43,8 @@ package_template:
 monitor:
   poll_interval: 10          # 轮询间隔 秒
   max_wait_seconds: 1800     # 最大超时时间
+
+# 断点续跑配置
+checkpoint:
+  checkpoint_filename: "pipeline_breakpoint.json"
+  auto_clean_on_finish: true
