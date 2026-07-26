@@ -1,0 +1,16 @@
+skill_name: snowolf-pipeline-import
+description: 导入生成升级流水线
+entry: script/main.py
+python_env: default
+inputs:
+  - name: env_name
+    type: string
+  - name: version
+    type: string
+outputs:
+  - name: arch
+  - name: package_local_path
+context_transfer: true
+lifecycle:
+  timeout: 600
+retry: 0
