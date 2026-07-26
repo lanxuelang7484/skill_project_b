@@ -2,9 +2,13 @@ import logging
 from pathlib import Path
 
 BASE_DIR = Path(__file__).parent.parent
-LOG_FILE = BASE_DIR / "logs" / "pipeline_run.log"
+LOG_DIR = BASE_DIR / "logs"
+LOG_FILE = LOG_DIR / "pipeline_run.log"
 
 def get_logger(name: str):
+    # 自动创建日志目录
+    LOG_DIR.mkdir(exist_ok=True, parents=True)
+
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
     if not logger.handlers:
